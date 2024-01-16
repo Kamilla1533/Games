@@ -11,32 +11,24 @@ class Snake:
         self.snake_speed = 10
         self.snake_pos_x = pos_x / 2
         self.snake_pos_y = pos_y / 2
-        self.direction = "down"
+        self.direction = None
 
     def draw(self):
         self.outer = pygame.draw.rect(self.parent_screen, self.black, (self.snake_pos_x, self.snake_pos_y, self.snake_size, self.snake_size))
         self.inner = pygame.draw.rect(self.parent_screen, self.green, (self.snake_pos_x + 1, self.snake_pos_y + 1, self.snake_size - 2, self.snake_size - 2))
 
-
     def left_move(self):
-        self.snake_pos_x -= self.snake_size
-        self.parent_screen.fill(self.black)
-        self.draw()
+        self.direction = "left"
 
     def right_move(self):
-        self.snake_pos_x += self.snake_size
-        self.parent_screen.fill(self.black)
-        self.draw()
+        self.direction = "right"
 
     def up_move(self):
-        self.snake_pos_y -= self.snake_size
-        self.parent_screen.fill(self.black)
-        self.draw()
+        self.direction = "up"
 
     def down_move(self):
-        self.snake_pos_y += self.snake_size
-        self.parent_screen.fill(self.black)
-        self.draw()
+        self.direction = "down"
+
 
 class MainGame:
     def __init__(self):
@@ -79,7 +71,8 @@ class MainGame:
                 elif event.type == QUIT:
                     running = False
             
-
+            self.snake.walk()
+            time.sleep(0.2)
             pygame.display.update()
 
         pygame.quit()
