@@ -20,19 +20,23 @@ class Snake:
 
     def left_move(self):
         self.snake_pos_x -= self.snake_size
+        self.parent_screen.fill(self.black)
         self.draw()
 
     def right_move(self):
         self.snake_pos_x += self.snake_size
-        #self.draw()
+        self.parent_screen.fill(self.black)
+        self.draw()
 
     def up_move(self):
         self.snake_pos_y -= self.snake_size
-        #self.draw()
+        self.parent_screen.fill(self.black)
+        self.draw()
 
     def down_move(self):
         self.snake_pos_y += self.snake_size
-        #self.draw()
+        self.parent_screen.fill(self.black)
+        self.draw()
 
 class MainGame:
     def __init__(self):
@@ -83,21 +87,4 @@ class MainGame:
 if __name__ == '__main__':
     Game = MainGame()
     Game.run()
-
-
-'''
-def walk():
-    snake_pos_x = int(SC_WIDTH / 2)
-    snake_pos_y = int(SC_HEIGHT / 2)
-    direction = "down"
-    if direction == "left":
-        snake_pos_x -= snake_size
-    elif direction == "right":
-        snake_pos_x += snake_size
-    elif direction == "up":
-        snake_pos_y -= snake_size
-    elif direction == "down":
-        snake_pos_y += snake_size
-'''
-
 
