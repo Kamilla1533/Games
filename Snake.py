@@ -126,10 +126,20 @@ class MainGame:
     def start_game(self):
         self.snake.walk()
         self.apple.draw_random_apple()
+        self.display_score()
+        pygame.display.flip()
 
         if self.collision(self.snake.snake_pos_x[0], self.snake.snake_pos_y[0], self.apple.apple_pos_x, self.apple.apple_pos_y):
             self.snake.add_length()
             self.apple.another_spawn()
+
+        #for i in range(0, self.snake.length):
+            
+
+    def display_score(self):
+        font = pygame.font.SysFont("robotho", 50)
+        score = font.render(f"Score: {self.snake.length}", True, self.white)
+        self.screen.blit(score, (360, 10))
 
     def run(self):
         running = True
