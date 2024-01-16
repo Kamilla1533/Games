@@ -29,6 +29,19 @@ class Snake:
     def down_move(self):
         self.direction = "down"
 
+    def walk(self):
+        if self.direction == "left":
+            self.snake_pos_x -= self.snake_size
+        elif self.direction == "right":
+            self.snake_pos_x += self.snake_size
+        elif self.direction == "up":
+            self.snake_pos_y -= self.snake_size
+        elif self.direction == "down":
+            self.snake_pos_y += self.snake_size
+
+        self.parent_screen.fill(self.black)
+        self.draw()
+
 
 class MainGame:
     def __init__(self):
