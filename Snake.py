@@ -154,9 +154,9 @@ class MainGame:
         game_over = font.render(f"GAME OVER", True, self.white)
         self.screen.blit(game_over, (250, 300))
         score_show = font.render(f"Your score is {self.snake.length}", True, self.white)
-        self.screen.blit(score_show, (240, 350))
+        self.screen.blit(score_show, (235, 350))
         play_again = font.render("Press Enter to play or Escape to exit", True, self.white)
-        self.screen.blit(play_again, (100, 400))
+        self.screen.blit(play_again, (105, 400))
         pygame.display.flip()
 
     def run(self):
@@ -169,15 +169,15 @@ class MainGame:
                         running = False
                     if event.key == K_RETURN:
                         stop = False
-                    
+                   
                     if not stop:
-                        if event.key == K_UP:
+                        if event.key == K_UP and self.snake.direction != "down":
                             self.snake.up_move()
-                        elif event.key == K_DOWN:
+                        elif event.key == K_DOWN and self.snake.direction != "up":
                             self.snake.down_move()
-                        elif event.key == K_LEFT:
+                        elif event.key == K_LEFT and self.snake.direction != "right":
                             self.snake.left_move()
-                        elif event.key == K_RIGHT:
+                        elif event.key == K_RIGHT and self.snake.direction != "left":
                             self.snake.right_move()
 
                 elif event.type == QUIT:
@@ -192,7 +192,8 @@ class MainGame:
                 self.reset_score()
 
             time.sleep(0.09)
-           
+
+
 if __name__ == '__main__':
     Game = MainGame()
     Game.run()
