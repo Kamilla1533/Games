@@ -22,7 +22,6 @@ class Apple:
         self.apple_pos_x = random.randrange(0, self.width - self.sizeApple, self.sizeApple)
         self.apple_pos_y = random.randrange(0, self.height - self.sizeApple, self.sizeApple)
 
-
 class Snake:
     def __init__(self, parent_screen, black_color, green_color, pos_x, pos_y, white_color, length):
         self.length = length
@@ -34,7 +33,6 @@ class Snake:
         self.white = white_color
         self.parent_screen = parent_screen
         self.snake_size = 30
-        # self.snake_speed = 10
         self.snake_pos_x = [SIZE] * length
         self.snake_pos_y = [SIZE] * length
         self.direction = None
@@ -60,7 +58,6 @@ class Snake:
         for i in range(self.length - 1, 0, -1):
             self.snake_pos_x[i] = self.snake_pos_x[i - 1]
             self.snake_pos_y[i] = self.snake_pos_y[i - 1]
-
 
         if self.direction == "left":
             self.snake_pos_x[0] -= self.snake_size
@@ -89,7 +86,6 @@ class Snake:
         self.length +=1
         self.snake_pos_x.append(-1)
         self.snake_pos_y.append(-1)
-
 
 class MainGame:
     def __init__(self):
@@ -120,12 +116,10 @@ class MainGame:
         self.snake = Snake(self.screen, self.black, self.green, self.SC_WIDTH, self.SC_HEIGHT, self.white, 1)
         self.apple = Apple(self.screen, self.red, self.SC_WIDTH, self.SC_HEIGHT)
 
-
     def collision(self, x1, y1, x2, y2):
         if x1 >= x2 and x1 < x2 + SIZE:
             if y1 >= y2 and y1 < y2 + SIZE:
                 return True
-
         return False
 
     def start_game(self):
@@ -179,10 +173,8 @@ class MainGame:
                             self.snake.left_move()
                         elif event.key == K_RIGHT and self.snake.direction != "left":
                             self.snake.right_move()
-
                 elif event.type == QUIT:
                     running = False
-
             try:
                 if not stop:
                     self.start_game()
@@ -190,9 +182,7 @@ class MainGame:
                 self.game_over_menu()
                 stop = True
                 self.reset_score()
-
             time.sleep(0.09)
-
 
 if __name__ == '__main__':
     Game = MainGame()
