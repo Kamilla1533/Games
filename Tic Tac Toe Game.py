@@ -1,6 +1,5 @@
 import pygame
 from pygame.locals import *
-import random
 
 # Цвета
 RED_X = (240, 84, 84)
@@ -26,6 +25,7 @@ class Lattice:
 
         pygame.draw.line(self.parent_screen, LIGHT_BLUE_L, [200, 110], [200, 720], 5)
         pygame.draw.line(self.parent_screen, LIGHT_BLUE_L, [405, 110], [405, 720], 5)
+
 
 class X_player:
     def __init__(self, parent_screen):
