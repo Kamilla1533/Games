@@ -125,7 +125,7 @@ class MainGame:
         return False
 
     def main_song(self):
-        pygame.mixer.music.load("assets\song.mp3")
+        pygame.mixer.music.load("assets/song.mp3")
         pygame.mixer.music.play()
 
     def start_game(self):
