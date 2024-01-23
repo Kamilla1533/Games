@@ -25,7 +25,6 @@ class Apple:
 class Snake:
     def __init__(self, parent_screen, black_color, green_color, pos_x, pos_y, white_color, length):
         self.length = length
-
         self.width = pos_x
         self.height = pos_y
         self.black = black_color
@@ -91,7 +90,8 @@ class MainGame:
     def __init__(self):
         # запуск игры
         pygame.init()
-
+        pygame.mixer.init()
+        self.main_song()
         # размер окна
         self.SC_WIDTH = 720
         self.SC_HEIGHT = 720
@@ -120,7 +120,12 @@ class MainGame:
         if x1 >= x2 and x1 < x2 + SIZE:
             if y1 >= y2 and y1 < y2 + SIZE:
                 return True
+
         return False
+
+    def main_song(self):
+        pygame.mixer.music.load("assets\song.mp3")
+        pygame.mixer.music.play()
 
     def start_game(self):
         self.snake.walk()
@@ -129,15 +134,18 @@ class MainGame:
         pygame.display.flip()
 
         if self.collision(self.snake.snake_pos_x[0], self.snake.snake_pos_y[0], self.apple.apple_pos_x, self.apple.apple_pos_y):
+            biteSound = pygame.mixer.Sound("assets\bite.mp3")
+            pygame.mixer.Sound.play(biteSound)
             self.snake.add_length()
             self.apple.another_spawn()
 
         for i in range(3, self.snake.length):
             if self.collision(self.snake.snake_pos_x[0], self.snake.snake_pos_y[0], self.snake.snake_pos_x[i], self.snake.snake_pos_y[i]):
+                endGame = pygame.mixer.Sound("assets\endgame.mp3")
+                pygame.mixer.Sound.play(endGame)
                 raise "Game over!"
 
     def display_score(self):
-
         font = pygame.font.SysFont("robotho", 50)
         score = font.render(f"Score: {self.snake.length}", True, self.white)
         self.screen.blit(score, (550, 10))
@@ -152,6 +160,7 @@ class MainGame:
         play_again = font.render("Press Enter to play or Escape to exit", True, self.white)
         self.screen.blit(play_again, (105, 400))
         pygame.display.flip()
+        pygame.mixer.music.stop()
 
     def run(self):
         running = True
@@ -162,8 +171,9 @@ class MainGame:
                     if event.key == K_ESCAPE:
                         running = False
                     if event.key == K_RETURN:
+                        self.main_song()
                         stop = False
-                   
+                    # snake movement
                     if not stop:
                         if event.key == K_UP and self.snake.direction != "down":
                             self.snake.up_move()
@@ -182,6 +192,7 @@ class MainGame:
                 self.game_over_menu()
                 stop = True
                 self.reset_score()
+
             time.sleep(0.09)
 
 if __name__ == '__main__':
