@@ -11,10 +11,6 @@ LIGHT_BLUE_L = (48, 71, 94)
 WIDTH = 600
 HEIGHT = 720
 
-# Размеры ячеек
-CELL_WIDTH = 200
-CELL_HEIGHT = 200
-
 # Раскладка клавы
 L_1 = [0, 520]
 L_2 = [205, 520]
@@ -37,26 +33,26 @@ class Lattice:
         pygame.draw.rect(self.parent_screen, LIGHT_BLUE_L,(200, 110, 5, 610))
         pygame.draw.rect(self.parent_screen, LIGHT_BLUE_L, (405, 110, 5, 610))
 
-
-class X_player:
-    def __init__(self, parent_screen):
+class User:
+    def __init__(self, parent_screen, image):
         self.parent_screen = parent_screen
-        self.x_image = pygame.image.load("assets/x_player.png").convert()
+        self.image = image
+
+    def set_parent_screen(self, parent_screen):
+        self.parent_screen = parent_screen
+
+    def get_parent_screen(self):
+       return self.parent_screen
+
+    def set_image(self, image):
+        self.image = image
+
+    def get_image(self):
+        return self.image
 
     def draw_x(self, pos_x, pos_y):
-        self.parent_screen.blit(self.x_image, (pos_x, pos_y))
+        self.parent_screen.blit(self.image, (pos_x, pos_y))
         pygame.display.flip()
-
-
-class O_player:
-    def __init__(self, parent_screen):
-        self.parent_screen = parent_screen
-        self.o_image = pygame.image.load("assets/o_player.png")
-
-    def draw_o(self):
-        self.parent_screen.blit(self.o_image, (205, 110))
-        pygame.display.flip()
-        pygame.draw.circle(self.parent_screen, WHITE_O, (305,210), 70, 5)
 
 class MainGame:
     def __init__(self):
@@ -64,8 +60,13 @@ class MainGame:
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         title = pygame.display.set_caption("Tic Tac Toe")
         self.screen.fill(BLUE_BG)
-        self.x_player = X_player(self.screen)
-        #self.o_player = O_player(self.screen)
+
+        image_X = pygame.image.load("assets/x_player.png").convert()
+        self.x_player = User(self.screen, image_X)
+
+        image_O = pygame.image.load("assets/o_player.png").convert()
+        self.o_player = User(self.screen, image_O)
+
         self.lattice = Lattice(self.screen)
         self.lattice.draw()
 
@@ -97,7 +98,7 @@ class MainGame:
                         self.x_player.draw_x(L_1[0], L_1[1])
 
                     elif event.key == K_KP2:
-                        self.x_player.draw_x(L_2[0], L_2[1])
+                        self.o_player.draw_x(L_2[0], L_2[1])
 
                     elif event.key == K_KP3:
                         self.x_player.draw_x(L_3[0], L_3[1])
@@ -107,6 +108,7 @@ class MainGame:
 
                 elif event.type == QUIT:
                     running = False
+            
             self.start_game()
 
 if __name__ == '__main__':
