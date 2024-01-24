@@ -22,17 +22,6 @@ L_7 = [0, 110]
 L_8 = [205, 110]
 L_9 = [410, 110]
 
-class Lattice:
-    def __init__(self, parent_screen):
-        self.parent_screen = parent_screen
-
-    def draw(self):
-        pygame.draw.rect(self.parent_screen, LIGHT_BLUE_L, (0, 515, 610, 5))
-        pygame.draw.rect(self.parent_screen, LIGHT_BLUE_L, (0, 310, 610, 5))
-
-        pygame.draw.rect(self.parent_screen, LIGHT_BLUE_L,(200, 110, 5, 610))
-        pygame.draw.rect(self.parent_screen, LIGHT_BLUE_L, (405, 110, 5, 610))
-
 class User:
     def __init__(self, parent_screen, image):
         self.parent_screen = parent_screen
@@ -67,9 +56,6 @@ class MainGame:
         image_O = pygame.image.load("assets/o_player.png").convert()
         self.o_player = User(self.screen, image_O)
 
-        self.lattice = Lattice(self.screen)
-        self.lattice.draw()
-
         font = pygame.font.SysFont("robotho", 50)
         score = font.render("SCORE", True, WHITE_O)
         self.screen.blit(score, (250, 10))
@@ -77,14 +63,18 @@ class MainGame:
         pygame.display.flip() # не трогать!
 
 
-
-    def start_game(self):
-        pass
-
-
     def turn_of_the_move(self):
         pass
 
+    def draw_lattice(self):
+        pygame.draw.rect(self.screen, LIGHT_BLUE_L, (0, 515, 610, 5))
+        pygame.draw.rect(self.screen, LIGHT_BLUE_L, (0, 310, 610, 5))
+        pygame.draw.rect(self.screen, LIGHT_BLUE_L, (200, 110, 5, 610))
+        pygame.draw.rect(self.screen, LIGHT_BLUE_L, (405, 110, 5, 610))
+        pygame.display.flip()
+
+    def start_game(self):
+        self.draw_lattice()
 
     def run(self):
         running = True
@@ -93,7 +83,8 @@ class MainGame:
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
                         running = False
-                    # раскладка клавы
+
+                    # управление
                     elif event.key == K_KP1:
                         self.x_player.draw_x(L_1[0], L_1[1])
 
@@ -106,9 +97,24 @@ class MainGame:
                     elif event.key == K_KP4:
                         self.x_player.draw_x(L_4[0], L_4[1])
 
+                    elif event.key == K_KP5:
+                        self.x_player.draw_x(L_5[0], L_5[1])
+
+                    elif event.key == K_KP6:
+                        self.o_player.draw_x(L_6[0], L_6[1])
+
+                    elif event.key == K_KP7:
+                        self.x_player.draw_x(L_7[0], L_7[1])
+
+                    elif event.key == K_KP8:
+                        self.x_player.draw_x(L_8[0], L_8[1])
+
+                    elif event.key == K_KP9:
+                        self.x_player.draw_x(L_9[0], L_9[1])
+
                 elif event.type == QUIT:
                     running = False
-            
+
             self.start_game()
 
 if __name__ == '__main__':
